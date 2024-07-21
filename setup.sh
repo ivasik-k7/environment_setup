@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# PROFILE
-BASHRC_PATH=~/.bashrc
 
 # COLORS
 RED='\033[0;31m'
@@ -87,13 +85,17 @@ install_utilities() {
 install_powershell() {
     sudo apt-get update -qq
 
-    wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+    sudo apt-get install -y wget
 
-    sudo dpkg -i packages-microsoft-prod.deb
+    wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.3/powershell_7.4.3-1.deb_amd64.deb
 
-    sudo apt-get update -qq
+    sudo dpkg -i powershell_7.4.3-1.deb_amd64.deb
 
-    sudo apt-get install -y powershell
+    sudo apt-get install -f
+
+    rm powershell_7.4.3-1.deb_amd64.deb
+
+    pwsh
 
     pwsh --version
 }
@@ -103,7 +105,11 @@ install_nvm_node() {
 
     curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
-    source "$BASHRC_PATH"
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+    source ~/.bashrc
 
     echo "Verifying the version of NVM..."
     nvm --version
@@ -117,6 +123,8 @@ install_nvm_node() {
     echo "Checking the version of the NodeJs"
     nvm list
     node --version
+
+    source ~/.bashrc
 
     echo "Installation completed..."
 }
@@ -138,7 +146,7 @@ install_python() {
 
     echo "Aliases have been added successfully."
 
-    source "$BASHRC_PATH"
+    source ~/.bashrc
 
     echo "Verifying Python installation..."
     python --version
