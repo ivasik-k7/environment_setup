@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  ubuntu-st:
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+    volumes:
+      - .:/app

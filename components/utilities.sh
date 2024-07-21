@@ -1,18 +1,30 @@
 #!/usr/bin/env bash
 
-source components/common.sh
-
 set -e
 
+echo "Updating the repositories..."
+apt-get update -qq
+
+if ! command -v sudo &>/dev/null; then
+    echo "Installing sudo..."
+    apt-get install -y sudo
+fi
+
 echo "Installing essential utilities..."
+sudo apt-get install -y \
+    apt-transport-https \
+    bash \
+    curl \
+    git \
+    htop \
+    ncdu \
+    software-properties-common \
+    tree \
+    unzip \
+    vim \
+    wget
 
-echo "Installing super-user library"
+echo "Updating the repositories again..."
+sudo apt-get update -qq
 
-install_if_not_installed sudo
-install_if_not_installed curl
-install_if_not_installed bash
-install_if_not_installed wget
-install_if_not_installed apt-transport-https
-install_if_not_installed software-properties-common
-
-sudo apt-get update
+echo "Installation of utilities has been completed successfully..."

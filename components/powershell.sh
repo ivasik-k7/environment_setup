@@ -2,34 +2,14 @@
 
 set -e
 
-is_installed() {
-    command -v "$1" >/dev/null 2>&1
-}
+sudo apt-get update -qq
 
-install_if_not_installed() {
-    if ! is_installed "$1"; then
-        echo "Installing $1..."
-        sudo apt-get install -y "$1"
-    else
-        echo "$1 is already installed."
-    fi
-}
+wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
 
-echo "Installing PowerShell..."
+sudo dpkg -i packages-microsoft-prod.deb
 
-install_if_not_installed sudo
-install_if_not_installed wget
-install_if_not_installed apt-transport-https
-install_if_not_installed software-properties-common
+sudo apt-get update -qq
 
-wget -q "https://packages.microsoft.com/keys/microsoft.asc" -O- | sudo apt-key add -
+sudo apt-get install -y powershell
 
-wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -cs)/prod.list" -O /etc/apt/sources.list.d/microsoft-prod.list
-
-sudo apt-get update
-install_if_not_installed powershell
-
-echo "Verifying PowerShell installation..."
 pwsh --version
-
-echo "PowerShell installation complete."
