@@ -1,62 +1,41 @@
 #!/usr/bin/env bash
+# -*- coding: utf-8 -*-
 
-# COLORS
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
-BLUE='\033[0;34m'
-NC='\033[0m'
+BASHRC_PATH="$HOME/.bashrc"
 
-display_instructions() {
-    printf "$RED"
-    cat <<"EOF"
-
-                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣶⣶⠖⠀⠀⠲⣶⣶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⡿⠋⠀⠀⠀⠀⠀⠀⠙⢿⣿⣦⡀⠀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⢀⣾⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⣿⣷⡀⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⣾⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿⣷⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⠀⠀⣿⣿⣿⣇⣤⠶⠛⣛⣉⣙⡛⠛⢶⣄⣸⣿⣿⣿⠀⠀⠀⠀⠀⠀
-                ⠀⠀⠀⠀⢀⣀⣿⣿⣿⡟⢁⣴⣿⣿⣿⣿⣿⣿⣦⡈⢿⣿⣿⣿⣀⡀⠀⠀⠀⠀
-                ⠀⠀⢠⣴⣿⣿⣿⣿⡟⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡌⢿⣿⣿⣿⣿⣦⡄⠀⠀
-                ⠀⣴⣿⣿⡿⠿⢛⣻⡇⢸⡟⠻⣿⣿⣿⣿⣿⡿⠟⢻⡇⣸⣛⡛⠿⣿⣿⣿⣦⠀
-                ⢸⣿⡿⠋⠀⠀⢸⣿⣿⡜⢧⣄⣀⣉⡿⣿⣉⣀⣠⣼⢁⣿⣿⡇⠀⠀⠙⢿⣿⡆
-                ⣿⣿⠁⠀⠀⠀⠈⣿⣿⡇⣿⡿⠛⣿⣵⣮⣿⡟⢻⡿⢨⣿⣿⠀⠀⠀⠀⠈⣿⣿
-                ⢿⡟⠀⠀⠀⠀⠀⠘⣿⣷⣤⣄⡀⣿⣿⣿⣿⢁⣤⣶⣿⣿⠃⠀⠀⠀⠀⠀⣿⡟
-                ⠘⠇⠀⠀⠀⠀⠀⠀⠈⠻⣿⣿⡇⢿⣿⣿⣿⢸⣿⣿⠟⠁⠀⠀⠀⠀⠀⠀⠻⠃
-                ⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⢩⣦⣘⡘⠋⣛⣸⡍⠁⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀
-                ⠀⠀⠘⢿⣷⣤⣤⣄⣤⣤⣶⣿⣿⣿⡿⢿⣿⣿⣿⣷⣤⣤⣠⣤⣴⣾⡿⠁⠀⠀
-                ⠀⠀⠀⠀⠉⠛⠿⠿⠿⡿⠿⠿⠛⠉⠀⠀⠉⠛⠿⠿⣿⠿⠿⠿⠛⠉⠀
-
-                ⠀⠀
-EOF
-    printf "${NC}"
-    echo -e "${BLUE}==================================================${NC}"
-    echo -e "${BLUE}                  WELCOME TO THE INSTALLER      ${NC}"
-    echo -e "${BLUE}==================================================${NC}"
-    echo
-    echo -e "${YELLOW}This script will guide you through the installation process.${NC}"
-    echo
-    echo -e "${GREEN}Step 1:${NC} ${RED}Essential Utilities${NC}"
-    echo -e "We'll install some essential utilities required for the setup."
-    echo
-    echo -e "${GREEN}Step 2:${NC} ${RED}Additional Components${NC}"
-    echo -e "After that, you'll have a choice of additional components to install."
-    echo -e "Please select the components you wish to install by entering the corresponding answer."
-    echo
-    echo -e "${BLUE}==================================================${NC}"
-    echo
+display_welcome() {
+    clear
+    echo "*************************************************"
+    echo "*     _        _                                *"
+    echo "*    / \\   ___| |_ __ ___  __ _ _ __ ___        *"
+    echo "*   / _ \\ / __| | '__/ _ \\/ _\` | '_ \` _ \\       *"
+    echo "*  / ___ \\ (__| | | |  __/ (_| | | | | | |      *"
+    echo "* /_/   \\_\\___|_|_|  \\___|\\__,_|_| |_| |_|      *"
+    echo "*                                               *"
+    echo "* Welcome to the setup script!                  *"
+    echo "* This script will install essential utilities, *"
+    echo "* Python, NVM & Node.js, and AWS CLI.           *"
+    echo "* If you have any questions, please contact,    *"
+    echo "* Ivan Kovtun<ivan.kovtun@capgemini.com>        *"
+    echo "*************************************************"
 }
 
+log() {
+    echo "* [setup.sh] $1"
+}
+
+
 install_utilities() {
-    echo "Updating the repositories..."
-    apt-get update -qq
+    log "Updating the repositories..."
 
     if ! command -v sudo &>/dev/null; then
-        echo "Installing sudo..."
+        log "Installing sudo..."
         apt-get install -y sudo
     fi
 
-    echo "Installing essential utilities..."
+    sudo apt-get update -qq
+
+    log "Installing essential utilities..."
     sudo apt-get install -y \
         apt-transport-https \
         bash \
@@ -70,49 +49,72 @@ install_utilities() {
         vim \
         wget
 
-    echo "Updating the repositories again..."
+    log "Refreshing the repositories..."
     sudo apt-get update -qq
 
-    echo "Setting up Git aliases..."
+    log "Setting up Git aliases..."
     git config --global alias.a 'add .'
     git config --global alias.pf 'push --force'
     git config --global alias.amne 'commit --amend --no-edit'
     git config --global alias.ca 'commit --amend -m'
 
-    echo "Installation of utilities has been completed successfully..."
+    log "Installation of utilities has been completed successfully..."
 }
 
-install_powershell() {
-    sudo apt-get update -qq
+install_python() {
+    log "Installing Python..."
 
-    sudo apt-get install -y wget
+    add_alias() {
+        local alias_name="$1"
+        local alias_value="$2"
+        if alias "$alias_name" >/dev/null 2>&1; then
+            log "Alias '$alias_name' already exists in the current session."
+            return
+        fi
+    
+        if ! grep -q "^alias $alias_name=" "$BASHRC_PATH"; then
+            echo "alias $alias_name='$alias_value'" >> "$BASHRC_PATH"
+            log "Alias '$alias_name' added to $BASHRC_PATH."
+            # shellcheck disable=SC1090
+            source "$BASHRC_PATH"
+        else
+            log "Alias '$alias_name' already exists in $BASHRC_PATH."
+        fi
+    }
 
-    wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.3/powershell_7.4.3-1.deb_amd64.deb
+    add_alias python python3
+    add_alias py python3
+    add_alias pip pip3
+    add_alias pp pip3
 
-    sudo dpkg -i powershell_7.4.3-1.deb_amd64.deb
+    log "Aliases have been added successfully."
 
-    sudo apt-get install -f
+    # shellcheck disable=SC1090
+    source "$BASHRC_PATH"
 
-    rm powershell_7.4.3-1.deb_amd64.deb
+    log "Verifying Python installation..."
+    log "$(python3 --version)"
+    log "$(pip --version)"
 
-    pwsh
-
-    pwsh --version
+    log "Python installation complete."
 }
 
 install_nvm_node() {
-    echo "Installing NVM..."
+    log "Installing NVM..."
 
     curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
     export NVM_DIR="$HOME/.nvm"
+    # shellcheck disable=SC1091
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    # shellcheck disable=SC1091
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-    source ~/.bashrc
+    # shellcheck disable=SC1090
+    source "$BASHRC_PATH"
 
-    echo "Verifying the version of NVM..."
-    nvm --version
+    log "Verifying the version of NVM..."
+    log "NVM: $(nvm --version)"
 
     nvm install 18
     nvm install 16
@@ -120,96 +122,49 @@ install_nvm_node() {
     nvm alias default 18
     nvm use 18
 
-    echo "Checking the version of the NodeJs"
+    log "Checking the version of the NodeJs"
     nvm list
-    node --version
+    log "NodeJs: $(node --version)"
 
-    source ~/.bashrc
+    # shellcheck disable=SC1090
+    source "$BASHRC_PATH"
 
-    echo "Installation completed..."
-}
-
-install_python() {
-    echo "Installing Python..."
-
-    sudo apt-get install -y \
-        python3 python3-pip
-
-    echo "Adding aliases to $BASHRC_PATH..."
-
-    {
-        echo "alias python=python3"
-        echo "alias pip=pip3"
-        echo "alias py=python3"
-        echo "alias pp=pip3"
-    } >>"$BASHRC_PATH"
-
-    echo "Aliases have been added successfully."
-
-    source ~/.bashrc
-
-    echo "Verifying Python installation..."
-    python --version
-    pip --version
-
-    echo "Python installation complete."
+    log "Installation completed..."
 }
 
 install_aws_cli() {
-    echo "Installing of AWS CLI..."
+    log "Checking for AWS CLI..."
 
-    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" &&
-        unzip awscliv2.zip &&
-        sudo ./aws/install
+    if ! command -v aws &> /dev/null; then
+        log "AWS CLI not found. Installing AWS CLI..."
 
-    aws --version
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" &&
+            unzip awscliv2.zip &&
+            sudo ./aws/install
 
-    npm install -g aws-cdk &&
-        cdk --version
+        aws --version
+    else
+        log "AWS CLI is already installed. Skipping installation."
+    fi
+
+    log "Checking for AWS CDK..."
+
+    if ! command -v cdk &> /dev/null; then
+        log "AWS CDK not found. Installing AWS CDK..."
+
+        npm install -g aws-cdk &&
+            cdk --version
+    else
+        log "AWS CDK is already installed. Skipping installation."
+    fi
 }
 
-select_components() {
-    echo "Please choose additional components to install (separate multiple choices with commas):"
-    echo "1) PowerShell"
-    echo "2) Python"
-    echo "3) NodeJs"
-    echo "4) AWS (Node Required)"
-    echo "5) None"
-
-    read -p "Enter your choices (e.g., 1,2,3,4 or 5): " choices
-
-    IFS=',' read -r -a choices_array <<<"$choices"
-
-    for choice in "${choices_array[@]}"; do
-        case $choice in
-        1)
-            install_powershell
-            ;;
-        2)
-            install_python
-            ;;
-        3)
-            install_nvm_node
-            ;;
-        4)
-            if command -v node &>/dev/null; then
-                install_aws_cli
-            else
-                echo "AWS installation failed or NodeJs not found."
-            fi
-            ;;
-        5)
-            echo "No additional components will be installed."
-            return
-            ;;
-        *)
-            echo "Invalid choice: $choice. Skipping..."
-            ;;
-        esac
-    done
-}
-
-display_instructions
+display_welcome
 
 install_utilities
-select_components
+
+install_python
+
+install_nvm_node
+
+install_aws_cli
