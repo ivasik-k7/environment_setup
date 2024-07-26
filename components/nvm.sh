@@ -1,15 +1,26 @@
 #!/usr/bin/env bash
 
-BASHRC_PATH=~/.bashrc
+BASHRC_PATH="$HOME/.bashrc"
 
-echo "Installing NVM..."
+log() {
+    echo "* [nvm.sh] $1"
+}
+
+log "Installing NVM..."
 
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
+export NVM_DIR="$HOME/.nvm"
+# shellcheck disable=SC1091
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# shellcheck disable=SC1091
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# shellcheck disable=SC1090
 source "$BASHRC_PATH"
 
-echo "Verifying the version of NVM..."
-nvm --version
+log "Verifying the version of NVM..."
+log "NVM: $(nvm --version)"
 
 nvm install 18
 nvm install 16
@@ -17,8 +28,11 @@ nvm install 16
 nvm alias default 18
 nvm use 18
 
-echo "Checking the version of the NodeJs"
+log "Checking the version of the NodeJs"
 nvm list
-node --version
+log "NodeJs: $(node --version)"
 
-echo "Installation completed..."
+# shellcheck disable=SC1090
+source "$BASHRC_PATH"
+
+log "Installation completed..."

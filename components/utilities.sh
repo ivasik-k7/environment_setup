@@ -2,15 +2,20 @@
 
 set -e
 
-echo "Updating the repositories..."
-apt-get update -qq
+log() {
+    echo "* [utilities.sh] $1"
+}
+
+log "Updating the repositories..."
 
 if ! command -v sudo &>/dev/null; then
-    echo "Installing sudo..."
+    log "Installing sudo..."
     apt-get install -y sudo
 fi
 
-echo "Installing essential utilities..."
+sudo apt-get update -qq
+
+log "Installing essential utilities..."
 sudo apt-get install -y \
     apt-transport-https \
     bash \
@@ -24,7 +29,13 @@ sudo apt-get install -y \
     vim \
     wget
 
-echo "Updating the repositories again..."
+log "Refreshing the repositories..."
 sudo apt-get update -qq
 
-echo "Installation of utilities has been completed successfully..."
+log "Setting up Git aliases..."
+git config --global alias.a 'add .'
+git config --global alias.pf 'push --force'
+git config --global alias.amne 'commit --amend --no-edit'
+git config --global alias.ca 'commit --amend -m'
+
+log "Installation of utilities has been completed successfully..."

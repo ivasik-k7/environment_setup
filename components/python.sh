@@ -2,28 +2,44 @@
 
 set -e
 
-BASHRC_PATH=~/.bashrc
+BASHRC_PATH="$HOME/.bashrc"
 
-echo "Installing Python..."
+log() {
+    echo "* [python.sh] $1"
+}
 
-sudo apt-get install -y \
-    python3 python3-pip
+add_alias() {
+    local alias_name="$1"
+    local alias_value="$2"
+    if alias "$alias_name" >/dev/null 2>&1; then
+        log "Alias '$alias_name' already exists in the current session."
+        return
+    fi
 
-echo "Adding aliases to $BASHRC_PATH..."
+    if ! grep -q "^alias $alias_name=" "$BASHRC_PATH"; then
+        echo "alias $alias_name='$alias_value'" >>"$BASHRC_PATH"
+        log "Alias '$alias_name' added to $BASHRC_PATH."
+        # shellcheck disable=SC1090
+        source "$BASHRC_PATH"
+    else
+        log "Alias '$alias_name' already exists in $BASHRC_PATH."
+    fi
+}
 
-{
-    echo "alias python=python3"
-    echo "alias pip=pip3"
-    echo "alias py=python3"
-    echo "alias pp=pip3"
-} >>"$BASHRC_PATH"
+log "Installing Python..."
 
-echo "Aliases have been added successfully."
+add_alias python python3
+add_alias py python3
+add_alias pip pip3
+add_alias pp pip3
 
+log "Aliases have been added successfully."
+
+# shellcheck disable=SC1090
 source "$BASHRC_PATH"
 
-echo "Verifying Python installation..."
-python --version
-pip --version
+log "Verifying Python installation..."
+log "$(python3 --version)"
+log "$(pip --version)"
 
-echo "Python installation complete."
+log "Python installation complete."
